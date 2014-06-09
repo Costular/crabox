@@ -304,7 +304,6 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	}
 	
 	private void save() {
-		Gdx.app.debug(getClass().getName(), "Se llama al método save, score: " + player.getScore());
 		Cbx.getPreferences().save(player.getScore());
 	}
 	
@@ -313,6 +312,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 		
 		// Guardamos la score
 		Cbx.getPreferences().saveScore(player.getScore());
+		save();
 		//Actualizamos la score
 		hud.updateScores(String.valueOf(player.getScore()), String.valueOf(Cbx.getPreferences().getHighScore()));
 		
@@ -331,9 +331,9 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 				backgroundLight.setColor(Utils.getRandomColor());
 				
 				player.incrementVelocity(2);
-				generator.incrementAll(0.9f);
+				generator.incrementAll();
 			}
-		}, 10L, 10L, TimeUnit.SECONDS);
+		}, 5L, 5L, TimeUnit.SECONDS);
 	
 		Cbx.getResources().startMusic();
 	}

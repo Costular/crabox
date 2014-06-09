@@ -44,10 +44,7 @@ public class ContactBodies implements ContactListener{
 		
 		DefaultBox ground = getGround(a, b);
 		
-		// No tengo ni idea de por qué, pero hay que sumarle 3 para que funcione bien.
-		Gdx.app.debug(getClass().getSimpleName(), "Plataforma => Y: " + ground.getY() + ", mide: " + ground.getHeight());
-		Gdx.app.debug(getClass().getSimpleName(), "Player: => Y: " + player.getY() + ", mide: " + player.getHeight());
-		
+		// No tengo ni idea de por qué, pero no va del todo bien.		
 		
 		if(ground.getY() + ground.getHeight() < player.getY()){
 			player.setToRunning();

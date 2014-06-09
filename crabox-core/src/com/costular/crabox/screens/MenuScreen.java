@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -14,22 +15,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.costular.crabox.Cbx;
-import com.costular.crabox.MainClass;
+import com.costular.crabox.actors.ToggleButton;
 
 public class MenuScreen implements Screen{
 
 	private Stage stage;
 	
 	private ImageButton play;
-	private ImageButton sound;
+	private ToggleButton sound;
 	private Skin skin;
 	
 	@Override
@@ -75,23 +72,14 @@ public class MenuScreen implements Screen{
 		});
 		
 		// sonido
+		ImageButtonStyle styleS = new ImageButtonStyle();
+		styleS.up = skin.getDrawable("sonido-on");
+		styleS.down = skin.getDrawable("sonido-off");
+		styleS.checked = skin.getDrawable("sonido-off");
 		
-		sound = new ImageButton(skin.getDrawable(Cbx.getPreferences().canPlaySound() ? "sonido-on" : "sonido-off"));
+		sound = new ToggleButton(styleS);
+		sound.setChecked(!Cbx.getPreferences().canPlaySound());
 		sound.setBounds(20, 480-15-64, 64, 64);
-		sound.setChecked(Cbx.getPreferences().canPlaySound());
-		sound.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				sound.toggle();
-				
-				if(sound.isChecked()) {
-					
-					Cbx.getPreferences().setPlaySound(false);
-				}else {
-					Cbx.getPreferences().setPlaySound(true);
-				}
-		}
-		});
 		
 		//twitter
 		ImageButton twitter = new ImageButton(skin.getDrawable("twitter"));

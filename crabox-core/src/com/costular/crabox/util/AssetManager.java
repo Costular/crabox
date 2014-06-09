@@ -53,6 +53,10 @@ public class AssetManager implements Disposable{
 	}
 	
 	public void startMusic() {
+		if(!Cbx.getPreferences().canPlaySound()) {
+			return;
+		}
+		
 		if(music.isPlaying()) {
 			music.stop();
 		}

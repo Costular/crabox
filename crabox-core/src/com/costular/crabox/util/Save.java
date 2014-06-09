@@ -17,6 +17,8 @@ public class Save {
 	private Score score;
 	private Json json;
 	
+	private boolean canPlay;
+	
 	public Save() {
 		preferences = Gdx.app.getPreferences("crabox");
 		/*file = Gdx.files.internal("bin/crabox.json");
@@ -34,14 +36,19 @@ public class Save {
 		}
 		*/
 		score = new Score(getInt("score"));
+		canPlay = getSound();
 	}
 	
 	public boolean canPlaySound() {
-		return getBoolean("play_sound");
+		return canPlay;
 	}
 	
 	public void setPlaySound(boolean can) {
-		setBoolean("play_sound", can);
+		canPlay = can;
+	}
+	
+	public boolean getSound() {
+		return getBoolean("play_sound");
 	}
 	
 	public String getString(String key) {
@@ -121,7 +128,8 @@ public class Save {
 			this.score.highScore = score;
 			setInt("score", score);
 		}
-			
+		setBoolean("play_sound", canPlay);
+		
 		// :D
 		preferences.flush();
 	}

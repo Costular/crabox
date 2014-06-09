@@ -17,8 +17,8 @@ public class Player extends DefaultBox implements Disposable{
 	}
 	
 	// FINAL VARS
-	public static int IMPULSE = 45; 
-	public static final int JUMP_IMPULSE = 950;
+	public static int IMPULSE = 40; 
+	public static final int JUMP_IMPULSE = 940;
 	
 	//State
 	public State state;
@@ -172,7 +172,7 @@ public class Player extends DefaultBox implements Disposable{
 	}
 	
 	public void restart() {
-		IMPULSE = 42;
+		IMPULSE = 40;
 		score = 0;
 		highScore = 0;
 		state = State.STAYING;

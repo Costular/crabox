@@ -41,22 +41,22 @@ public class StageGenerator implements Disposable{
 		this.player = player;
 		
 		//CONSTANTS
-		minDistance = player.getWidth() * 5.5f;
-		maxDistance = player.getWidth() * 6.5f; // 
+		minDistance = player.getWidth() * 6.25f;
+		maxDistance = player.getWidth() * 6.40f; // 
 		minWidth = player.getWidth() * 4.5f;
 		maxWidth = player.getWidth() * 6f;
-		maxY = 3; 
+		maxY = 2; 
 		height = 2.5f;
 		
 		firstGenerate();
 	}
 	
-	public void incrementAll(float f) {
-		minDistance += f;
-		maxDistance += f;
-		minWidth += f;
-		maxWidth += f;
-		maxY += f / 3;
+	public void incrementAll() {
+		minDistance += 1.3f;
+		maxDistance += 1.6f;
+		minWidth += 0.2f;
+		maxWidth += 0.45f;
+		maxY += 0.2f;
 	}
 	
 	public void incrementMinDistance(float ff) {
