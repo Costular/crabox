@@ -1,16 +1,12 @@
 package com.costular.crabox.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Timer;
 import com.costular.crabox.actors.Box;
 import com.costular.crabox.actors.Player;
 
@@ -40,25 +36,25 @@ public class StageGenerator implements Disposable{
 		this.camera = camera;
 		this.player = player;
 		
-		//CONSTANTS
-		minDistance = player.getWidth() * 6.25f;
-		maxDistance = player.getWidth() * 6.40f; // 
+		//CONSTANTS 
+		minDistance = player.getWidth() * 5.80f;
+		maxDistance = player.getWidth() * 6f; // 
 		minWidth = player.getWidth() * 4.5f;
 		maxWidth = player.getWidth() * 6f;
-		maxY = 2; 
+		maxY = 0; 
 		height = 2.5f;
 		
 		firstGenerate();
 	}
 	
 	public void incrementAll() {
-		minDistance += 1.3f;
-		maxDistance += 1.6f;
-		minWidth += 0.2f;
-		maxWidth += 0.45f;
-		maxY += 0.2f;
+		minDistance += 4.3f;
+		maxDistance += 5.3f;
+		minWidth += 2.2f;
+		maxWidth += 2.9f;
+		maxY += 0.5f;
 	}
-	
+	//peneeeeeeee
 	public void incrementMinDistance(float ff) {
 		minDistance += ff;
 	}
@@ -102,7 +98,7 @@ public class StageGenerator implements Disposable{
 		generate(MathUtils.random(minDistance, maxDistance), MathUtils.random(minWidth, maxWidth));
 	}
 	
-	private void generate(float distance, float width) {
+	private void generate(float distance, float width) {		
 		Box box = new Box((float) (lastX+distance), MathUtils.random(0, maxY), width, height, false, 0, 0, world);
 		boxes.add(box);
 			
@@ -124,6 +120,7 @@ public class StageGenerator implements Disposable{
 		maxDistance = player.getWidth() * 7.5f; // 11 es quizás la ideal
 		minWidth = player.getWidth() * 4.5f;
 		maxWidth = player.getWidth() * 6f;
+		maxY = 0.5f;
 	}
 	
 	@Override

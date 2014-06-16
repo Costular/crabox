@@ -1,5 +1,7 @@
 package com.costular.crabox.actors;
 
+import javax.management.StringValueExp;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -45,7 +47,6 @@ public class ContactBodies implements ContactListener{
 		DefaultBox ground = getGround(a, b);
 		
 		// No tengo ni idea de por qué, pero no va del todo bien.		
-		
 		if(ground.getY() + ground.getHeight() < player.getY()){
 			player.setToRunning();
 			

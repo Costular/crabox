@@ -5,4 +5,5 @@ public interface Controller {
 	public void start();
 	public void notReady();
 	public void gameOver();
+	public void screenChanged();
 }

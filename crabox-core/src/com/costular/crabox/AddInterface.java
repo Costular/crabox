@@ -2,5 +2,5 @@ package com.costular.crabox;
 
 public interface AddInterface {
 	
-	public void showAd(boolean bool);
+	public void showAds(boolean bool);
 }

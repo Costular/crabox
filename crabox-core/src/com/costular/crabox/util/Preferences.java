@@ -3,24 +3,24 @@ package com.costular.crabox.util;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
+import com.costular.crabox.Cbx;
 import com.costular.crabox.actors.Score;
 
 
-public class Save {
+public class Preferences {
 	
 	private FileHandle file;
-	private Preferences preferences;
+	private com.badlogic.gdx.Preferences prefs;
 	private Score score;
 	private Json json;
 	
-	private boolean canPlay;
 	
-	public Save() {
-		preferences = Gdx.app.getPreferences("crabox");
+	
+	public Preferences() {
+		prefs = Gdx.app.getPreferences("crabox");
 		/*file = Gdx.files.internal("bin/crabox.json");
 		json = new Json();
 		
@@ -36,15 +36,6 @@ public class Save {
 		}
 		*/
 		score = new Score(getInt("score"));
-		canPlay = getSound();
-	}
-	
-	public boolean canPlaySound() {
-		return canPlay;
-	}
-	
-	public void setPlaySound(boolean can) {
-		canPlay = can;
 	}
 	
 	public boolean getSound() {
@@ -52,35 +43,35 @@ public class Save {
 	}
 	
 	public String getString(String key) {
-		return preferences.getString(key);
+		return prefs.getString(key);
 	}
 	
 	public boolean getBoolean(String key) {
-		return preferences.getBoolean(key);
+		return prefs.getBoolean(key);
 	}
 	
 	public float getFloat(String key) {
-		return preferences.getFloat(key);
+		return prefs.getFloat(key);
 	}
 	
 	public int getInt(String key) {
-		return preferences.getInteger(key);
+		return prefs.getInteger(key);
 	}
 	
 	public void setString(String key, String value) {
-		preferences.putString(key, value);
+		prefs.putString(key, value);
 	}
 	
 	public void setBoolean(String key, boolean value) {
-		preferences.putBoolean(key, value);
+		prefs.putBoolean(key, value);
 	}
 	
 	public void setFloat(String key, float value) {
-		preferences.putFloat(key, value);
+		prefs.putFloat(key, value);
 	}
 	
 	public void setInt(String key, int value) {
-		preferences.putInteger(key, value);
+		prefs.putInteger(key, value);
 	}
 	
 	public void saveScore(int score) {
@@ -128,10 +119,10 @@ public class Save {
 			this.score.highScore = score;
 			setInt("score", score);
 		}
-		setBoolean("play_sound", canPlay);
+		setBoolean("play_sound", Cbx.getAudio().canPlay());
 		
 		// :D
-		preferences.flush();
+		prefs.flush();
 	}
 
 	

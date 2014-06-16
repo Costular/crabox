@@ -1,8 +1,6 @@
 package com.costular.crabox.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.costular.crabox.Cbx;
 
 public class ToggleButton extends Button{
@@ -15,7 +13,7 @@ public class ToggleButton extends Button{
 	public void setChecked(boolean bool) {
 		super.setChecked(bool);
 		
-		Cbx.getPreferences().setPlaySound(!bool);
+		Cbx.getAudio().setCanPlay(!bool);
 	}
 	
 	

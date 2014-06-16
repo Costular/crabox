@@ -1,6 +1,9 @@
 package com.costular.crabox.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,10 +48,21 @@ public class MenuScreen implements Screen{
 
 	@Override
 	public void show() {
-		//Creamos el escenario que mide 800x480
-		stage = new Stage(new FitViewport(800, 480));
-		Gdx.input.setInputProcessor(stage);
 		
+		
+		//Creamos el escenario que mide 800x480
+		stage = new Stage(new FitViewport(800, 480)) {
+			@Override
+	        public boolean keyDown(int keyCode) {
+	            if (keyCode == Keys.BACK) {
+	                Gdx.app.exit();
+	            }
+	            return super.keyDown(keyCode);
+	        }
+		};
+		
+		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setCatchBackKey(true);
 		
 		//Añadimos el fondo
 		Image back = new Image(new TextureRegionDrawable(Cbx.getResources().splash));
@@ -78,7 +92,7 @@ public class MenuScreen implements Screen{
 		styleS.checked = skin.getDrawable("sonido-off");
 		
 		sound = new ToggleButton(styleS);
-		sound.setChecked(!Cbx.getPreferences().canPlaySound());
+		sound.setChecked(!Cbx.getAudio().canPlay());
 		sound.setBounds(20, 480-15-64, 64, 64);
 		
 		//twitter
@@ -128,5 +142,6 @@ public class MenuScreen implements Screen{
 		stage.dispose();	
 	}
 	
-
 }
+
+

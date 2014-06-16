@@ -23,8 +23,8 @@ public class Utils {
 	
 	public static final float WORLD_TO_BOX = 0.01f;
 	public static final float BOX_TO_WORLD = 100f;
-	
-	private static final Color[] colors = { Color.valueOf("61380B"), Color.valueOf("0B3B17"), Color.valueOf("0A122A"), Color.valueOf("3B0B0B")};
+											// Azul claro            ROJO						  Naranja
+	private static final Color[] colors = { Color.valueOf("2E9AFE"), Color.valueOf("FE2E2E"), Color.valueOf("FF8000"), Color.valueOf("9FF781")};
 	private static int last = 0;
 	
 	public static Color getRandomColor() {

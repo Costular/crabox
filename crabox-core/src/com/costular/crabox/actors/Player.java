@@ -17,12 +17,12 @@ public class Player extends DefaultBox implements Disposable{
 	}
 	
 	// FINAL VARS
-	public static int IMPULSE = 40; 
+	public static int IMPULSE = 45; 
 	public static final int JUMP_IMPULSE = 940;
 	
 	//State
 	public State state;
-		
+	
 	//Score
 	private int score;
 	private int highScore;
@@ -130,6 +130,8 @@ public class Player extends DefaultBox implements Disposable{
 	
 	@Override
 	public void update() {
+		super.update();
+		
 		if(getY() < Utils.getBorderBottomOfCamera() && state != State.DYING) { // Posición de la caja es 0, mide 10 y le damos un poco más de margen, por tanto 15.
 			setToDying();
 		}
@@ -138,7 +140,7 @@ public class Player extends DefaultBox implements Disposable{
 		position.set(body.getPosition());
 		angle = body.getAngle() * MathUtils.radiansToDegrees;
 		
-		if(velocity.x < IMPULSE && isRunning() && Cbx.getController().isStarted()) {
+		if((velocity.x < IMPULSE || velocity.x > IMPULSE) && isRunning() && Cbx.getController().isStarted()) {
 			body.setLinearVelocity(IMPULSE, 0);
 		}
 	}
@@ -152,7 +154,7 @@ public class Player extends DefaultBox implements Disposable{
 			return;
 		}
 		setToJumping();
-		Cbx.getResources().soundJump();
+		Cbx.getAudio().playJumpSound();
 		
 		applyLinearImpulse(0, JUMP_IMPULSE);
 		//applyAngularImpulse(-180);
@@ -172,7 +174,7 @@ public class Player extends DefaultBox implements Disposable{
 	}
 	
 	public void restart() {
-		IMPULSE = 40;
+		IMPULSE = 45;
 		score = 0;
 		highScore = 0;
 		state = State.STAYING;
@@ -180,6 +182,8 @@ public class Player extends DefaultBox implements Disposable{
 		// ahora la posición
 		position.set(1, 2.6f);
 		body.setTransform(1, 2.6f, 0);
+		
+		update();
 	}
 	
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 
-public class GameController {
+public class GameController implements Controller{
 	
 	private List<Controller> controllers;
 	
@@ -23,13 +23,14 @@ public class GameController {
 	public boolean isGameOver() {
 		return state == GameState.GAME_OVER;
 	}
-	
+
 	public GameState getState() {
 		return state;
 	}
 
 	public void setState(GameState state) {
 		this.state = state;
+		Gdx.app.debug(getClass().getSimpleName(), "State changed: " + state.toString());
 	}
 
 	public GameController() {
@@ -45,7 +46,7 @@ public class GameController {
 	}
 	
 	public void gameOver() {
-		state = GameState.GAME_OVER;
+		setState(GameState.GAME_OVER);
 		
 		for(Controller c : controllers) {
 			c.gameOver();
@@ -53,7 +54,7 @@ public class GameController {
 	}
 	
 	public void start() {
-		state = GameState.STARTED;
+		setState(GameState.STARTED);
 		
 		for(Controller c : controllers) {
 			c.start();
@@ -61,10 +62,21 @@ public class GameController {
 	}
 	
 	public void notReady() {
-		state = GameState.NOT_READY;
+		setState(GameState.NOT_READY);
 		
 		for(Controller c : controllers) {
 			c.notReady();
 		}
+	}
+	
+	@Override
+	public void screenChanged() {
+		state = GameState.SCREEN_CHANGED;
+		
+		for(Controller c : controllers) {
+			c.screenChanged();
+		}
+		
+		notReady();
 	}
 }

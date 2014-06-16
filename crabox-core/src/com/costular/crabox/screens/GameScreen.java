@@ -1,9 +1,11 @@
 package com.costular.crabox.screens;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -26,6 +28,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.costular.crabox.Cbx;
 import com.costular.crabox.Controller;
+import com.costular.crabox.MainClass;
 import com.costular.crabox.actors.Box;
 import com.costular.crabox.actors.ContactBodies;
 import com.costular.crabox.actors.Player;
@@ -40,7 +43,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	private World world;
 	
 	// Actors
-	private Player player;
+	public Player player;
 	private List<Box> boxes = new ArrayList<Box>();
 	private List<Box> boxesToRemove = new ArrayList<Box>();
 	
@@ -48,7 +51,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	private StageGenerator generator;
 	
 	//booleans
-	private boolean debug;
+	public static boolean debug;
 	
 	//Lights
 	private RayHandler handler;
@@ -59,7 +62,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	
 	
 	//SCHEDULED
-	private ScheduledExecutorService service;
+	private ScheduledThreadPoolExecutor service;
 	
 	public static OrthographicCamera getCamera() {
 		return camera;
@@ -117,9 +120,9 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 
 	@Override
 	public void show() {
-
+		
 		//----------------------------------------------DEBUG TRUE----------------------------------------------------------------------------------||
-	/*	||*/  debug = true;                                                                                                                       //|| 
+	/*	||*/  debug = false;                                                                                                                       //|| 
 		//------------------------------------------------------------------------------------------------------------------------------------------||
 		
 		camera = new OrthographicCamera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);	
@@ -167,10 +170,22 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	@Override
 	public void hide() {
 		save();
+		stopService();
+		Gdx.app.exit();
 	}
 
 	@Override
 	public void pause() {
+		
+		if(!Cbx.getController().isGameOver()) {
+			save();
+			stopService();
+			Gdx.app.exit();
+		}
+	}
+	
+	public void stopService() {
+		service.shutdown();
 	}
 
 	@Override
@@ -182,6 +197,8 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	public void dispose() {
 		Cbx.getController().notReady();
 		
+		service.shutdown();
+		
 		world.dispose();
 		shape.dispose();
 		batch.dispose();
@@ -192,7 +209,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	
 	public void restart() {
 		// Lo paramos.
-		service.shutdown();
+		stopService();
 		
 		//Volvemos al principio el Generator. (Ya se encarga de vaciar el List de las cajas).
 		generator.restart();
@@ -235,6 +252,10 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 		
 		camera.position.x = player.getX();
 		camera.update();
+		
+		if(debug) {
+			hud.fps.setText("FPS: " + Gdx.app.getGraphics().getFramesPerSecond());
+		}
 	}
 	
 	private void updateLight() {
@@ -282,9 +303,10 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 		handler.setCulling(true);
 		handler.setCombinedMatrix(camera.combined);
 
-		backgroundLight = new PointLight(handler, 10, Color.WHITE, 700, camera.position.x + camera.viewportWidth / 3, camera.position.y + camera.viewportHeight / 2);
+		backgroundLight = new PointLight(handler, 10, Color.WHITE, 500, camera.position.x + camera.viewportWidth / 3, camera.position.y + camera.viewportHeight / 2);
 		backgroundLight.setColor(Utils.getRandomColor());
 		backgroundLight.setXray(true);
+		backgroundLight.setSoft(true);
 	}
 	
 	private void beginGenerate() {
@@ -308,7 +330,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 	}
 	
 	public void gameOver() {		
-		service.shutdown();
+		service.shutdownNow();
 		
 		// Guardamos la score
 		Cbx.getPreferences().saveScore(player.getScore());
@@ -316,7 +338,7 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 		//Actualizamos la score
 		hud.updateScores(String.valueOf(player.getScore()), String.valueOf(Cbx.getPreferences().getHighScore()));
 		
-		Cbx.getResources().downMusicToStop();
+		Cbx.getAudio().stopMusic();
 	}
 	
 	@Override
@@ -324,55 +346,64 @@ public class GameScreen extends InputAdapter implements Screen, Controller{
 		player.beginRun();
 		
 		// SCHEDULER CADA 5 SEGUNDOS.
-		service = Executors.newScheduledThreadPool(1);
+		int count = 0;
+		
+		service = new ScheduledThreadPoolExecutor(1);
+		service.setExecuteExistingDelayedTasksAfterShutdownPolicy(true);
+		service.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+		
 		service.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
+				
+				
+				if(Cbx.getController().isGameOver()) {
+					return;
+				}
+				
 				backgroundLight.setColor(Utils.getRandomColor());
 				
-				player.incrementVelocity(2);
+				player.incrementVelocity(7);	
 				generator.incrementAll();
+								
+				Gdx.app.debug(getClass().getSimpleName(), "Color changed, velocity: " + player.getBody().getLinearVelocity().x);
 			}
-		}, 5L, 5L, TimeUnit.SECONDS);
+		}, 3L, 3L, TimeUnit.SECONDS);
 	
-		Cbx.getResources().startMusic();
+		Cbx.getAudio().startMusic();
+		
+		Gdx.app.debug(getClass().getSimpleName(), "------------------------STARTED-------------------------");
 	}
 
 	@Override
 	public void notReady() {		
+		player.restart();
+		
 		player.getBody().setLinearVelocity(new Vector2(0, 0));
+	}
+
+	@Override
+	public void screenChanged() {
+		if(Cbx.getAudio().isPlayingMusic()) {
+			Cbx.getAudio().stopMusic();
+		}
 	}
 
 	public boolean keyDown(int keycode) {
 		switch(keycode) {
-		case Input.Keys.S:
-		System.out.println("Size of boxes list: " + boxes.size());
-		boolean someWrong = false;
-		for(Box b :boxes) {
-			if(b.getX() < camera.position.x - camera.viewportWidth && !b.toDestroy()) {
-				someWrong = true;
-			}
-		}
-		System.out.println("¿Alguna caja está a la izquierda de la pantalla?: " + (someWrong == true ? "sí" : "no"));
-		System.out.println("Score del usuario: " + player.getScore());
-		break;
-		case Input.Keys.P: 
-			if(player.velocity.x != 0) {
-				player.getBody().setLinearVelocity(0, 0);
-			} else {
-				player.getBody().setLinearVelocity(Player.IMPULSE, 0);
-			}
-			
-			break;
-		case Input.Keys.F: 
-			System.out.println(Gdx.graphics.getFramesPerSecond());
+		case Input.Keys.BACK:
+			 if(Cbx.currentScreen.equals(this)) {
+	        	  Cbx.goToMenu();
+	          }
 			break;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+		
+		Gdx.app.debug(getClass().getSimpleName(), "Velocity.x: " + player.velocity.x + ", Impulse: " + Player.IMPULSE + ", body Velocity: " + player.getBody().getLinearVelocity().x);
 		
 		if(Cbx.getController().isStarted()) {
 			player.jump();
