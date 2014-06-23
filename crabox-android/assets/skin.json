@@ -1,0 +1,57 @@
+{
+com.badlogic.gdx.graphics.Color: {
+        white: { r: 1, g: 1, b: 1, a: 1 },
+        black: { r: 0, g: 0, b: 0, a: 0 },
+        red: { r: 1, g: 0, b: 0, a: 1 },
+        yellow: { r: 0.5, g: 0.5, b: 0, a: 1 }
+},
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+        white-small: { file: data/white-small.fnt },
+        white-medium: { file: data/white-medium.fnt },
+        white-big: { file: data/white-big.fnt, filter: linear },
+        black-small: { file: data/black-small.fnt },
+        black-medium: { file: data/black-medium.fnt },
+        black-big: { file: data/black-big.fnt },
+        blue-small: { file: data/blue-small.fnt },
+    	blue-medium: { file: data/blue-medium.fnt },
+    	blue-big: { file: data/blue-big.fnt }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	white-small: { font: white-small },
+    white-medium: { font: white-medium },
+    white-big: { font: white-big },
+    black-small: { font:black-small },
+    black-medium: { font: black-medium },
+    black-big: { font: black-big },
+    blue-small: { font: blue-small },
+    blue-medium: { font: blue-medium },
+    blue-big: { font: blue-big }
+},
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+        default: { down: button-down, up: button, font: white-medium },           
+        big: { down: button-down, up: button, font: white-big },
+        small: { down: button-down, up: button, font: white-small },
+        toggle: { down: button-down, checked: button-down, up: button, font: white-medium }
+},
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+        default: { down: button-down, up: button },           
+        toggle: { down: button-down, checked: button-down, up: button },
+},
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: { titleFont: black-medium, background: window },
+	dialog: { titleFont: white-big, background: pop-up }
+},
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: { checkboxOn: checkbox-checked, checkboxOff: checkbox, font: black-small }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: { background: slider-background, knob: slider }
+},
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: { background: progress-bar, knob: progress-bar-fore }
+},
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: { selection: textfield-focus, background: textfield, font: black-medium }
+}
+}
+

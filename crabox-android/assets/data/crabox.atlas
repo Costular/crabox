@@ -1,0 +1,234 @@
+
+crabox.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+black-big
+  rotate: false
+  xy: 1, 426
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+cubo
+  rotate: false
+  xy: 1, 168
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+return
+  rotate: false
+  xy: 515, 746
+  size: 192, 192
+  orig: 192, 192
+  offset: 0, 0
+  index: -1
+share-facebook
+  rotate: false
+  xy: 1, 75
+  size: 256, 91
+  orig: 256, 91
+  offset: 0, 0
+  index: -1
+share-twitter
+  rotate: false
+  xy: 709, 847
+  size: 256, 91
+  orig: 256, 91
+  offset: 0, 0
+  index: -1
+progress-bar-fore
+  rotate: false
+  xy: 259, 364
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+progress-bar
+  rotate: false
+  xy: 515, 684
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+button-down
+  rotate: false
+  xy: 1, 23
+  size: 50, 50
+  split: 11, 12, 12, 13
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 709, 795
+  size: 50, 50
+  split: 13, 12, 12, 12
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+pop-up
+  rotate: false
+  xy: 967, 888
+  size: 50, 50
+  split: 12, 13, 14, 15
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+textfield-focus
+  rotate: false
+  xy: 259, 312
+  size: 50, 50
+  split: 12, 12, 13, 13
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+textfield
+  rotate: false
+  xy: 321, 374
+  size: 50, 50
+  split: 12, 13, 13, 13
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 515, 632
+  size: 50, 50
+  split: 9, 11, 11, 11
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dialog-title-background
+  rotate: false
+  xy: 577, 704
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+checkbox-checked
+  rotate: false
+  xy: 1, 1
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+checkbox
+  rotate: false
+  xy: 53, 53
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+slider
+  rotate: false
+  xy: 709, 773
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+slider-background
+  rotate: false
+  xy: 761, 835
+  size: 10, 10
+  split: 3, 3, 3, 3
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+
+crabox2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+black-medium
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox3.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+black-small
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox4.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue-big
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox5.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue-medium
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox6.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue-small
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox7.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+white-big
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox8.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+white-medium
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+crabox9.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+white-small
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
